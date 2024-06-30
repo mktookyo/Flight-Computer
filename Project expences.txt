@@ -1,0 +1,12 @@
+NRF24L01+ : 385c
+ESP32: 520c
+GPS Neo-6m: 487c
+MPU9250: 821c
+NRf24l01: 176c
+3.2 TFT SPI: 893c
+Magnet 2pc: 35+35c
+Hall effect sensor 2pc: 75+75c
+USB-c charging module: 85c
+Buzzer 2pc; 60+60c
+Total rn: 3707c
+
