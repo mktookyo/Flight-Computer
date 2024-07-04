@@ -95,16 +95,19 @@ void setup() {
     Serial.println("Could not find a valid BMP280 sensor");
     // while (1);
   }
-  Serial.println("bmp280 has started");
+  else{
+    Serial.println("bmp280 has started");
+  }
   neogps.begin(9600, SERIAL_8N1, RXD2, TXD2);
   if (gpsChecker()!=true){
     Serial.println("Couldn't find GPS module");
-    while(1);
+    // while(1);
   }
-  Serial.println("GPS has started!");
+  else{
+    Serial.println("GPS has started!");
+  }
 }
 void loop() {
-  byte data = neogps.read();
-  Serial.write(data);
-  // delay(500);
+  gpsFastRead();
+  delay(1000);
 }
