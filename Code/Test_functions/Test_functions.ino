@@ -24,6 +24,7 @@ struct weatherstruct {
 // defining pin numbers
 #define RXD2 16
 #define TXD2 17
+#define buzzer 18
 
 // Objects
 GyverBME280 bme;    //Crating object bme for BMP280  
@@ -36,9 +37,24 @@ void UART_raw_read (){
   Serial.write(data);
 }
 
+boolean gpsChecker(){ //функция возвращает true если до модуля gps можно дозвониться
+  boolean newData = false;
+  for (unsigned long start = millis(); millis() - start < 1000;)
+  {
+    while (neogps.available())
+    {
+      if (gps.encode(neogps.read()))
+      {
+        newData = true;
+      }
+    }
+  }
+  return newData;
+}
 
 void setup() {
   // put your setup code here, to run once:
+  pinMode(buzzer, OUTPUT);
   Serial.begin(115200); //Activating serial port (115200 baud) for ESP32
   if (!bme.begin(0x76)) {  // Check if BMP280 connected
     Serial.println("Could not find a valid BMP280 sensor");
@@ -59,5 +75,16 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-
+  tone(buzzer, 1000);
+  delay(300);
+  noTone(buzzer);
+  delay(300);
+  tone(buzzer, 500);
+  delay(300);
+  noTone(buzzer);
+  delay(300);
+  tone(buzzer, 300);
+  delay(300);
+  noTone(buzzer);
+  delay(300);
 }

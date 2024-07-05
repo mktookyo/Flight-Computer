@@ -60,7 +60,9 @@ double rounding(double num, int decimal_places) { //функция округл�
   return round(num * multiplier) / multiplier; //возвращает округленное число 
 }
 void variometer(){
-  
+  if (verticalSpeed()<0){
+    
+  }
 }
 boolean gpsChecker(){ //функция возвращает true если до модуля gps можно дозвониться
   boolean newData = false;
@@ -108,6 +110,6 @@ void setup() {
   }
 }
 void loop() {
-  gpsFastRead();
-  delay(1000);
+  // gpsFastRead();
+  // delay(1000);
 }

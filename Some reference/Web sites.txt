@@ -1,3 +1,4 @@
 https://habr.com/ru/articles/394975/
 https://github.com/prunkdump/arduino-variometer
 https://forum.arduino.cc/t/bmp-280-exact-altimeter-readings/480374/5
+https://www.deltaplanerizm.ru/read/slavutich/
