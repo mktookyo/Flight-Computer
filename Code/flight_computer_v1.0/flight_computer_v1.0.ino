@@ -18,6 +18,8 @@ TFT display 3.2 240 x 340px: SDO(MOSI)-D19 LED-1KOhm 3.3V SCK-D18 SDI-D23 D/C-D2
 #include <TinyGPS++.h> // GPS neo-6m
 #include <GyverBME280.h> // BMP280 
 #include <Adafruit_MPU6050.h> // MPU6500
+#include <Adafruit_GFX.h> //Graphics
+#include <Adafruit_ILI9341.h> //TFT display
 
 // Variables
 struct weatherstruct {
@@ -30,6 +32,17 @@ struct gyroscope_offset_value{
 // Defining pin numbers
 #define RXD2 16
 #define TXD2 17
+#define buzzer 5
+// TFT display pins
+#define TFT_CS    15
+#define TFT_RST   4
+#define TFT_DC    2
+#define TFT_MOSI  19
+#define TFT_SCK   18
+#define TFT_MISO  23
+
+// Define custom colors
+#define CUSTOM_BROWN 0xA145
 
 // Objects
 GyverBME280 bme; // Creating object bme for BMP280  
@@ -126,7 +139,7 @@ double rounding(double num, int decimal_places) { // Function to round values wi
 
 void variometer() {
   if (verticalSpeed() < 0) {
-    // Add your code here for handling negative vertical speed
+    
   }
 }
 
@@ -208,17 +221,20 @@ void setup() {
     Serial.println("GPS has started!");
   }
   // Starting MPU6500
-  if (!mpu.begin()) {
-    Serial.println("Could not find a valid MPU6500 sensor");
-  } else {
-    mpuInitialization();
-    gyroscope.Calibration();
-    Serial.println("MPU6500 has started");
-  }
+  mpu.begin();
+  mpuInitialization();
+  gyroscope.Calibration();
+  Serial.println("MPU6500 has started");
 }
 
 // MAIN LOOP
 void loop() {
-  allDataRead();
-  delay(1000);
+  for(int i=32;i<=1000;i++){
+    tone(buzzer, i);
+    delay(3);
+  }
+  for(int i=1000; i>=32;i--){
+    tone(buzzer, i);
+    delay(3);
+  }
 }
