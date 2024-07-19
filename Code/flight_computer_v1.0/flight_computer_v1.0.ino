@@ -116,15 +116,18 @@ public:
   void update() {
     int altitude = pressureToAltitude(bme.readPressure());
     int speed = gps.speed.kmph();
-    box_Variable(10,10,"Altitude", altitude);
-    box_Variable(122,10,"Speed",speed);
+    float pitch, roll;
+    getAngles(pitch, roll);
+    box_Variable(10, 10, "Altitude", altitude);
+    box_Variable(122, 10, "Speed", speed);
+    drawHorizonBox(50, 150, 140, 150, pitch, roll, 45);
     delay(20);  // Update rate, adjust as needed
   }
 
 private:
   Adafruit_ILI9341 tft;
   int naviCounter = 0;
-  void drawHorizonBox(int x, int y, int w, int h, float pitch, float roll, float pitchViewAngle) { //position: x,y  size: width, height   angles: pitch, roll   angle of view in Horizon box: pitchViewAngle
+  void drawHorizonBox(int x, int y, int w, int h, float pitch, float roll, float pitchViewAngle) {  //position: x,y  size: width, height   angles: pitch, roll   angle of view in Horizon box: pitchViewAngle
     if (naviCounter < 1) {
       // Clear previous content
       tft.fillRect(x, y, w, h, ILI9341_BLACK);
@@ -209,7 +212,7 @@ private:
     // Вычисление координат для центрирования текста по оси X в белом прямоугольнике
     int xCVariable = x + (rectWidth - textWidth) / 2;
     // Установка курсора и вывод текста переменной в белом прямоугольнике
-    tft.fillRect(x+1,y+15,rectWidth-2, rectHeight-16, ILI9341_BLACK);
+    tft.fillRect(x + 1, y + 15, rectWidth - 2, rectHeight - 16, ILI9341_BLACK);
     tft.setTextColor(ILI9341_WHITE);
     tft.setCursor(xCVariable, y + 25);  // Устанавливаем y как 25 пикселей от верхнего края квадрата
     tft.print(variableStr);
